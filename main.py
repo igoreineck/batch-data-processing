@@ -1,11 +1,20 @@
-if __name__ == '__main__':
-    import os
+import os
 
+from os.path import join, dirname
+from dotenv import load_dotenv
+ 
+
+dotenv_path = join(dirname(__file__), '.env')
+load_dotenv(dotenv_path)
+
+
+if __name__ == '__main__':
     from connection.api_connection import ApiConnection
     from connection.data_generate import DataGenerate
 
+    SECRET_KEY = os.getenv('API_TOKEN')
 
-    connection = ApiConnection('1fe37e79eacd4a62821526080700271f')
+    connection = ApiConnection(SECRET_KEY)
     PROJECT_PATH = os.getcwd() + '/data/'
 
     parameters = {
@@ -18,6 +27,7 @@ if __name__ == '__main__':
         parameters
     )
 
-    process = DataGenerate(request, PROJECT_PATH)
-    process.get_data()
-    process.save_to_files()
+    proccess = DataGenerate(request, PROJECT_PATH)
+    proccess.get_data()
+    proccess.save_to_files()
+    proccess.read_files()

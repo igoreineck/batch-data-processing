@@ -19,7 +19,7 @@ class DataGenerate:
     def get_data(self):
         for item in self.__request['matches']:
             string =\
-            """Game date: {gameDate} | {homeTeam} [{homeGoals}] x [{awayGoals}] {awayTeam}\n\n""".format(
+            """Game date: {gameDate} | {homeTeam} [{homeGoals}] x [{awayGoals}] {awayTeam}\n""".format(
                 homeTeam=item['homeTeam']['name'],
                 awayTeam=item['awayTeam']['name'],
                 homeGoals=item['score']['fullTime']['homeTeam'],
@@ -55,3 +55,12 @@ class DataGenerate:
 
         print("Proccess finished with success!")
         print("Duration: {total} seconds".format(total=end_time-start_time))
+
+    """
+    Think the better way to show a simple block of information based on batch inserted
+    """
+    def read_files(self):
+        for item in os.listdir(self.__path):
+            with open(self.__path + item, 'r') as file:
+                file_content = file.readlines()
+            file.close()
